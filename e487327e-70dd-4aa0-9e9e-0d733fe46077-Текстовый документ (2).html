@@ -1,0 +1,83 @@
+
+<!DOCTYPE html><html lang="ru"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>��� ��� [ Love ] - ����� ����</title><style>
+ :root{--bg:#0a0a0f;--bg2:#12121a;--acc:#4da6ff;--gold:#ffb347;--txt:#e0e0e8;--sub:#9090a5;--bord:#2a2a3e}
+*{margin:0;padding:0;box-sizing:border-box}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+:root{--b:#0a0a0f;--b2:#12121a;--a:#4da6ff;--g:#ffb347;--t:#e0e0e8;--s:#9090a5;--bn:#2a2a3e}
+*{margin:0;padding:0;box-sizing:border-box}
+body {font-family:'Segoe UI',Inter,system-ui;background:var(--b);color:var(--t);min-height:100vh}
+.hdr {position:fixed;top:0;left:0;right:0;background:rgba(10,10,15,.9);border-bottom:1px solid var(--bn);z-index:100}
+.hdr-i {max-width:1200px;margin:0 auto;padding:12px 24px;display:flex;align-items:center;justify-content:space-between}
+.lg {font-size:28px;color:var(--a)}
+.toc a {padding:6px 14px;border-radius:8px;color:var(--s);text-decoration:none;font-size:14px}
+.toc a:hover {color:var(--a)}
+.mn {max-width:1200px;margin:0 auto;padding:80px 24px 48px}
+.hero {text-align:center;padding:40px 0 32px}
+.hero h1 {font-size:32px;font-weight:800}
+.badge {display:inline-block;background:rgba(77,166,255,.15);color:var(--a);padding:4px 14px;border-radius:20px;font-size:16px;margin-left:8px}
+.sr {position:relative;max-width:480px;margin:20px auto}
+.sr input {width:100%;padding:12px 18px;border-radius:10px;border:1px solid var(--bn);background:var(--b2);color:var(--t);font-size:16px}
+.sr input:focus {border-color:var(--a)}
+.sr div {position:absolute;top:100%;left:0;right:0;background:var(--b2);border:1px solid var(--bn);border-top:none;border-radius:0 0 10px 10px;max-height:300px;overflow-y:auto;display:none}
+.sr div:hover {background:rgba(255,255,255,.05)}
+.sr strong {color:var(--a)}
+.cl {display:grid;gap:6px}
+.ci {display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:8px;cursor:pointer}
+.ci:hover {background:rgba(255,255,255,.04)}
+.cn {font-weight:700;color:var(--a);font-size:18px;min-width:32px}
+.ct {flex:1;font-size:15px;font-weight:600}
+.cc {display:none}
+.cc.active {display:block}
+.ch2 {padding:24px 28px;background:linear-gradient(135deg,var(--b2),var(--b));border:1px solid var(--bn);border-radius:12px;margin-bottom:20px}
+.ch2 h2 {font-size:24px;font-weight:800;display:flex;align-items:center;gap:12px}
+.cb {padding:24px 28px;background:var(--b2);border:1px solid var(--bn);border-radius:12px}
+.cb h3 {font-size:18px;font-weight:700;color:var(--a);margin:16px 0 8px}
+.cb ul {padding-left:20px;margin:8px 0}
+.cb li {margin:4px 0}
+.nt {background:rgba(255,179,71,.08);border-left:3px solid var(--g);padding:12px 16px;border-radius:0 8px 8px 0;margin:12px 0}
+.cr {text-align:center;padding:32px 24px;color:var(--s);font-size:13px;border-top:1px solid var(--bn);margin-top:40px}
+</style>
+</head>
+<body>
+<div class="hdr">
+  <div class="hdr-i">
+    <span class="lg">🔍</span>
+    <span style="font-size:20px;font-weight:700;color:var(--a)">ЗГСГОС <span>[ Love ]</span></span>
+    <nav><div class="toc" id="toc"></div></nav>
+  </div>
+</div>
+<div class="mn">
+  <div class="hero">
+    <h1>Устав ФБРа<span class="badge">📜 ЗГС ГОС [ Love ]</span></h1>
+    <p>Полный внутренний устав, регламенты и правила сервера Love.</p>
+    <div class="sr"><input type="text" id="searchInput" placeholder="🔍 Найти в уставе..."><div class="sr" id="searchResults"></div></div>
+  </div>
+  <div class="contents"><div class="cl" id="chapterList"></div></div>
+  <div class="cr"><p>📜 ЗГС ГОС [ Love ] - Устав ФБРа</p><p>Для RP-игры. Проверяйте актуальность.</p></div>
+</div>
+<script>
+const toc=[
+['I','Внутренний устав ФБРа','ch1','Главы 1-11'],
+['II','Регламент маскировки','ch2','§1-11'],
+['III','Регламент вербовок','ch3','⚠️ Обрыв'],
+['IV','Регламент внедрения','ch4','§1-7'],
+['V','Регламент облав','ch5','§1-4.11'],
+['VI','Учебные ЧС','ch6','§1-3.4'],
+['VII','Автопарк','ch7','7 моделей'],
+['VIII','Экспертизы лаб','ch8','⚠️ Нет в файле'],
+['IX','Позывные ФБРа','ch9','§1-5']
+];
+const cl=document.getElementById('chapterList');
+toc.forEach(c=>{const d=document.createElement('div');d.className='ci';d.dataset.ch=c[2];d.innerHTML=`<span class="cn">${c[0]}</span><span class="ct">${c[1]}</span><span class="cb">${c[3]}</span>`;d.onclick=()=>openChapter(parseInt(c[2].replace('ch','')));cl.appendChild(d)});
+const tl=toc.map(c=>`<a href="#${c[2]}" data-ch="${c[2]}">${c[1]}</a>`).join('');
+document.getElementById('toc').innerHTML=tl;
+function openChapter(n){document.querySelectorAll('.cc').forEach(e=>e.classList.remove('active'));const t=document.getElementById('ch'+n);if(t)t.classList.add('active');window.location.hash='#ch'+n;document.querySelector('.mn').scrollIntoView({behavior:'smooth'});document.querySelectorAll('nav.toc a').forEach(l=>l.classList.remove('active'));const l2=document.querySelector(`nav.toc a[data-ch="${n}"]`);if(l2)l2.classList.add('active')}
+window.addEventListener('scroll',()=>{let sp=window.scrollY+100;for(let i=0;i<10;i++){const t=document.getElementById('ch'+(i+1))?.offsetTop||0,b=t+1000;if(sp>=t&&sp<b){document.querySelectorAll('nav.toc a').forEach(l=>l.classList.remove('active'));const l2=document.querySelector(`nav.toc a[data-ch="${i+1}"]`);if(l2)l2.classList.add('active');break}}});
+const si=document.getElementById('searchInput'),sr=document.getElementById('searchResults');
+si.addEventListener('input',function(){const q=this.value.toLowerCase().trim();if(!q){sr.style.display='none';return}const r=[];document.querySelectorAll('.cb').forEach(el=>{const t=el.innerText.toLowerCase();let s=0;q.split(/\s+/).forEach(w=>{if(t.includes(w))s+=w.length});if(s>0)r.push({t,s,el})});r.sort((a,b)=>b.s-a.s);if(r.length===0){sr.innerHTML='<div>Ничего не найдено</div>'}else{sr.innerHTML=r.slice(0,8).map(x=>{const h=x.t.replace(new RegExp(q,'gi'),'<strong>'+q+'</strong>');return `<div onclick="highlightResult(this)">${h}</div>`}).join('')});sr.style.display='block'})
+function highlightResult(el){const cn=el.parentElement.dataset.ch||'';if(cn)openChapter(parseInt(cn));const ch=document.getElementById('ch'+cn);if(ch)ch.scrollIntoView({behavior:'smooth'})})
+</script>
+</body>
+</html>
+
